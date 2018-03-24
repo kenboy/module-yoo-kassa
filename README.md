@@ -1,0 +1,1 @@
+Module Kenboy\YandexCheckout implements integration with the Yandex Checkout payment system.

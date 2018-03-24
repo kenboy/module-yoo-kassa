@@ -1,0 +1,27 @@
+<?php
+/**
+ * See LICENSE.txt for license details.
+ */
+
+/** @var Kenboy\YandexCheckout\Block\Payment $block */
+
+$code = $block->escapeHtml($block->getCode());
+
+?>
+<script>
+    //<![CDATA[
+    require(
+        [
+            'Kenboy_YandexCheckout/js/cc-form',
+            'jquery',
+            'domReady!'
+        ], function(Form, $) {
+            var config = <?= /* @noEscape */ $block->getPaymentConfig() ?>,
+                payment,
+                form = $('#payment_form_<?= /* @noEscape */ $code ?>');
+
+            config.active = form.length > 0 && !form.is(':hidden');
+            payment = new Form(config);
+        });
+    //]]>
+</script>

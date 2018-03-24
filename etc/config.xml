@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <yandex_cc>
+                <model>YandexCreditCardFacade</model>
+                <title>Credit Card (Yandex)</title>
+                <payment_action>authorize</payment_action>
+                <active>0</active>
+                <is_gateway>1</is_gateway>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_capture_partial>0</can_capture_partial>
+                <can_authorize_vault>0</can_authorize_vault>
+                <can_capture_vault>0</can_capture_vault>
+                <can_use_internal>1</can_use_internal>
+                <can_refund_partial_per_invoice>0</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_edit>0</can_edit>
+                <can_review_payment>1</can_review_payment>
+                <can_deny_payment>1</can_deny_payment>
+                <useccv>1</useccv>
+                <order_status>processing</order_status>
+                <environment>sandbox</environment>
+                <allowspecific>0</allowspecific>
+                <sdk_url><![CDATA[https://static.yandex.net/checkout/ui/v1/]]></sdk_url>
+                <secret_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <masked_fields>cvv,number</masked_fields>
+                <privateInfoKeys />
+                <paymentInfoKeys>cc_type,cc_number</paymentInfoKeys>
+            </yandex_cc>
+            <yandex_cc_vault>
+                <model>YandexCreditCardVaultFacade</model>
+                <title>Stored Cards (Yandex)</title>
+                <instant_purchase>
+                    <tokenFormat>Kenboy\YandexCheckout\Model\InstantPurchase\CreditCard\TokenFormatter</tokenFormat>
+                </instant_purchase>
+            </yandex_cc_vault>
+        </payment>
+    </default>
+</config>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="YandexCreditCardFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Kenboy\YandexCheckout\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Kenboy\YandexCheckout\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">YandexCheckoutValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">YandexCheckoutValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">YandexCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration for Vault payments -->
+    <virtualType name="YandexCreditCardVaultFacade" type="Magento\Vault\Model\Method\Vault">
+        <arguments>
+            <argument name="code" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
+            <argument name="config" xsi:type="object">YandexVaultPaymentConfig</argument>
+            <argument name="valueHandlerPool" xsi:type="object">YandexVaultPaymentValueHandlerPool</argument>
+            <argument name="vaultProvider" xsi:type="object">YandexCreditCardFacade</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="YandexVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="YandexVaultPaymentValueHandler" type="VaultPaymentDefaultValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">YandexVaultPaymentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="YandexVaultPaymentValueHandlerPool" type="VaultPaymentValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">YandexVaultPaymentValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <type name="Kenboy\YandexCheckout\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </type>
+
+    <!-- Commands infrastructure -->
+    <virtualType name="YandexCheckoutCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array" />
+        </arguments>
+    </virtualType>
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="YandexCheckoutValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">YandexCheckoutConfigValueHandler</item>
+                <item name="can_void" xsi:type="string">Kenboy\YandexCheckout\Gateway\Config\CanVoidHandler</item>
+                <item name="can_cancel" xsi:type="string">Kenboy\YandexCheckout\Gateway\Config\CanVoidHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="YandexCheckoutConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Validators infrastructure -->
+    <virtualType name="YandexCheckoutCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="YandexCheckoutValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="country" xsi:type="string">YandexCheckoutCountryValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>
