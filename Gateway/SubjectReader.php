@@ -44,7 +44,7 @@ class SubjectReader
      * Reads transaction from subject
      *
      * @param array $subject
-     * @return
+     * @return array
      */
     public function readTransaction(array $subject)
     {
