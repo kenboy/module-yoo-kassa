@@ -19,6 +19,6 @@ class TransactionVoid extends AbstractTransaction
         unset($data['store_id']);
 
         return $this->adapterFactory->create($storeId)
-            ->cancel($data['transaction_id']);
+            ->cancel($data['payment_id']);
     }
 }

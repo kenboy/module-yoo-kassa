@@ -19,6 +19,6 @@ class TransactionCapture extends AbstractTransaction
         unset($data['store_id']);
 
         return $this->adapterFactory->create($storeId)
-            ->capture($data['transaction_id'], $data);
+            ->capture($data['payment_id'], array_diff_key($data, array_flip(['payment_id'])));
     }
 }
