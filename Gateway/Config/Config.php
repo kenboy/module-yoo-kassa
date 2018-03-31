@@ -19,12 +19,21 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     const KEY_SDK_URL = 'sdk_url';
     const KEY_USE_CVV = 'useccv';
     const KEY_CC_TYPES = 'cctypes';
+    const KEY_CC_TYPES_YANDEX_MAPPER = 'cctypes_yandex_mapper';
     const KEY_COUNTRY_CREDIT_CARD = 'countrycreditcard';
 
     /**
      * @var \Magento\Framework\Serialize\Serializer\Json
      */
     private $serializer;
+
+    /**
+     * Get list of available dynamic descriptors keys
+     * @var array
+     */
+    private static $dynamicDescriptorKeys = [
+        'name', 'phone', 'url'
+    ];
 
     /**
      * YandexCheckout config constructor
@@ -87,6 +96,19 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     }
 
     /**
+     * Retrieve mapper between Magento and Yandex card types
+     *
+     * @return array
+     */
+    public function getCcTypesMapper()
+    {
+        $result = $this->serializer
+            ->unserialize($this->getValue(self::KEY_CC_TYPES_YANDEX_MAPPER));
+
+        return is_array($result) ? $result : [];
+    }
+
+    /**
      * Checks if cvv field is enabled.
      *
      * @param int|null $storeId
@@ -137,5 +159,23 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     public function isActive($storeId = null)
     {
         return (bool) $this->getValue(self::KEY_ACTIVE, $storeId);
+    }
+
+    /**
+     * Gets list of configured dynamic descriptors.
+     *
+     * @param int|null $storeId
+     * @return array
+     */
+    public function getDynamicDescriptors($storeId = null)
+    {
+        $values = [];
+        foreach (self::$dynamicDescriptorKeys as $key) {
+            $value = $this->getValue('descriptor_' . $key, $storeId);
+            if (!empty($value)) {
+                $values[$key] = $value;
+            }
+        }
+        return $values;
     }
 }
