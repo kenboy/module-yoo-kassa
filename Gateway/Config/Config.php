@@ -28,14 +28,6 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     private $serializer;
 
     /**
-     * Get list of available dynamic descriptors keys
-     * @var array
-     */
-    private static $dynamicDescriptorKeys = [
-        'name', 'phone', 'url'
-    ];
-
-    /**
      * YandexCheckout config constructor
      *
      * @param ScopeConfigInterface $scopeConfig
@@ -159,23 +151,5 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     public function isActive($storeId = null)
     {
         return (bool) $this->getValue(self::KEY_ACTIVE, $storeId);
-    }
-
-    /**
-     * Gets list of configured dynamic descriptors.
-     *
-     * @param int|null $storeId
-     * @return array
-     */
-    public function getDynamicDescriptors($storeId = null)
-    {
-        $values = [];
-        foreach (self::$dynamicDescriptorKeys as $key) {
-            $value = $this->getValue('descriptor_' . $key, $storeId);
-            if (!empty($value)) {
-                $values[$key] = $value;
-            }
-        }
-        return $values;
     }
 }

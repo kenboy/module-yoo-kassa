@@ -194,7 +194,6 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
          * Init Yandex configuration
          */
         initYandex: function () {
-            fullScreenLoader.startLoader();
             yandex.setConfig(this.clientConfig);
         },
 
@@ -217,7 +216,7 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
             var data = {
                 'method': this.getCode(),
                 'additional_data': {
-                    'payment_method_token': this.paymentMethodToken
+                    'payment_token': this.paymentMethodToken
                 }
             };
 

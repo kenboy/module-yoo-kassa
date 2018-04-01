@@ -46,7 +46,8 @@ class DescriptorDataBuilder implements BuilderInterface
         $paymentDO = $this->subjectReader->readPayment($buildSubject);
         $order = $paymentDO->getOrder();
 
-        $values = $this->config->getDynamicDescriptors($order->getStoreId());
-        return !empty($values) ? [self::DESCRIPTION => $values] : [];
+        return [
+            self::DESCRIPTION => __('Order #%1', $order->getOrderIncrementId())
+        ];
     }
 }
