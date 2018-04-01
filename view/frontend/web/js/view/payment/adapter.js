@@ -50,7 +50,12 @@ define([
             var self = this;
 
             this.getClient()
-                .tokenize({})
+                .tokenize({
+                    number: $(self.config.hostedFields.number.selector).val(),
+                    cvc: $(self.config.hostedFields.cvv.selector).val(),
+                    month: $(self.config.hostedFields.month.selector).val(),
+                    year: $(self.config.hostedFields.year.selector).val()
+                })
                 .then(function (response) {
                     if (response.status === 'success') {
                         self.config.onReceived(response);

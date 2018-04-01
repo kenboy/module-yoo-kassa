@@ -6,23 +6,14 @@
 define([
     'underscore',
     'jquery',
+    'mage/translate',
     'Magento_Payment/js/view/payment/cc-form',
     'Magento_Checkout/js/model/quote',
     'Kenboy_YandexCheckout/js/view/payment/adapter',
-    'mage/translate',
     'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Vault/js/view/payment/vault-enabler'
 ],
-function (
-    _,
-    $,
-    Component,
-    quote,
-    yandex,
-    $t,
-    fullScreenLoader,
-    VaultEnabler
-) {
+function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
     'use strict';
 
     return Component.extend({
@@ -57,9 +48,7 @@ function (
                 /**
                  * {Object}
                  */
-                hostedFields: {
-
-                },
+                hostedFields: {},
 
                 /**
                  * Triggers on any Yandex error
@@ -174,13 +163,39 @@ function (
                     this.clientConfig[name] = fn.bind(this);
                 }
             }, this);
+
+            // Hosted fields settings
+            this.clientConfig.hostedFields = this.getHostedFields();
+        },
+
+        /**
+         * Get Yandex Hosted Fields
+         * @returns {Object}
+         */
+        getHostedFields: function () {
+            var self = this;
+            return {
+                number: {
+                    selector: self.getSelector('cc_number')
+                },
+                month: {
+                    selector: self.getSelector('expiration')
+                },
+                year: {
+                    selector: self.getSelector('expiration_yr')
+                },
+                cvv: {
+                    selector: self.getSelector('cc_cid')
+                }
+            };
         },
 
         /**
          * Init Yandex configuration
          */
         initYandex: function () {
-            //fullScreenLoader.startLoader();
+            fullScreenLoader.startLoader();
+            yandex.setConfig(this.clientConfig);
         },
 
         /**
@@ -234,21 +249,15 @@ function (
          */
         beforePlaceOrder: function (response) {
             this.setPaymentMethodToken(response.data.response.paymentToken);
-            this.placeOrder();
+            //this.placeOrder();
         },
 
         /**
-         * Action to place order
-         * @param {String} key
+         * Validate current credit card type
+         * @returns {Boolean}
          */
-        placeOrder: function (key) {
-            var self = this;
-
-            if (key) {
-                return self._super();
-            }
-
-            return false;
+        validateCardType: function () {
+            return this.selectedCardType() !== null;
         },
 
         /**
@@ -263,8 +272,10 @@ function (
          * Triggers order placing
          */
         placeOrderClick: function () {
-            this.isPlaceOrderActionAllowed(false);
-            $(this.getSelector('submit')).trigger('click');
+            if (this.validateCardType()) {
+                this.isPlaceOrderActionAllowed(false);
+                yandex.tokenize();
+            }
         },
 
         /**
