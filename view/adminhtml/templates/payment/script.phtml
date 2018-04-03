@@ -12,10 +12,11 @@ $code = $block->escapeHtml($block->getCode());
     //<![CDATA[
     require(
         [
-            'Kenboy_YandexCheckout/js/cc-form',
             'jquery',
+            'Kenboy_YandexCheckout/js/cc-form',
+            'Magento_Sales/order/create/form',
             'domReady!'
-        ], function(Form, $) {
+        ], function($, Form) {
             var config = <?= /* @noEscape */ $block->getPaymentConfig() ?>,
                 payment,
                 form = $('#payment_form_<?= /* @noEscape */ $code ?>');
