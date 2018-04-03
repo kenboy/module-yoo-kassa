@@ -24,12 +24,12 @@ define([
          * @returns {Object}
          */
         getClient: function () {
-            if (!this.getClientToken()) {
+            if (!this.getShopId()) {
                 this.showError($t('Sorry, but something went wrong.'));
             }
 
             if (!this.client) {
-                this.client = YandexCheckout(this.getClientToken());
+                this.client = YandexCheckout(this.getShopId());
             }
 
             return this.client;
@@ -77,8 +77,8 @@ define([
          * Get client token
          * @returns {String|*}
          */
-        getClientToken: function () {
-            return window.checkoutConfig.payment[this.getCode()].clientToken;
+        getShopId: function () {
+            return window.checkoutConfig.payment[this.getCode()].shopId;
         },
 
         /**
