@@ -9,11 +9,10 @@ define([
     'mage/translate',
     'Magento_Payment/js/view/payment/cc-form',
     'Magento_Checkout/js/model/quote',
-    'Kenboy_YandexCheckout/js/view/payment/adapter',
     'Magento_Checkout/js/model/full-screen-loader',
     'Magento_Vault/js/view/payment/vault-enabler'
 ],
-function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
+function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
     'use strict';
 
     return Component.extend({
@@ -25,48 +24,7 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
             ccCode: null,
             ccMessageContainer: null,
             code: 'yandex_cc',
-
-            /**
-             * Additional payment data
-             *
-             * {Object}
-             */
-            additionalData: {},
-
-            /**
-             * Yandex client configuration
-             *
-             * {Object}
-             */
-            clientConfig: {
-
-                /**
-                 * {String}
-                 */
-                id: 'co-transparent-form-yandex',
-
-                /**
-                 * {Object}
-                 */
-                hostedFields: {},
-
-                /**
-                 * Triggers on any Yandex error
-                 * @param {Object} response
-                 */
-                onError: function (response) {
-                    yandex.showError($t('Payment ' + this.getTitle() + ' can\'t be initialized'));
-                    throw response.message;
-                },
-
-                /**
-                 * Triggers on payment token receive
-                 * @param {Object} response
-                 */
-                onReceived: function (response) {
-                    this.beforePlaceOrder(response);
-                }
-            },
+            yandex: null,
             imports: {
                 onActiveChange: 'active'
             }
@@ -91,7 +49,6 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
         initObservable: function () {
             this._super()
                 .observe(['active']);
-            this.initClientConfig();
 
             return this;
         },
@@ -121,6 +78,8 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
          * @param {Boolean} isActive
          */
         onActiveChange: function (isActive) {
+            var self = this;
+
             if (!isActive) {
                 return;
             }
@@ -128,7 +87,11 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
             this.restoreMessageContainer();
             this.restoreCode();
 
-            this.initYandex();
+            fullScreenLoader.startLoader();
+            require(['yandex'], function () {
+                self.yandex = window.YandexCheckout(self.getShopId());
+                fullScreenLoader.stopLoader();
+            });
         },
 
         /**
@@ -155,49 +118,6 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
         },
 
         /**
-         * Init config
-         */
-        initClientConfig: function () {
-            _.each(this.clientConfig, function (fn, name) {
-                if (typeof fn === 'function') {
-                    this.clientConfig[name] = fn.bind(this);
-                }
-            }, this);
-
-            // Hosted fields settings
-            this.clientConfig.hostedFields = this.getHostedFields();
-        },
-
-        /**
-         * Get Yandex Hosted Fields
-         * @returns {Object}
-         */
-        getHostedFields: function () {
-            var self = this;
-            return {
-                number: {
-                    selector: self.getSelector('cc_number')
-                },
-                month: {
-                    selector: self.getSelector('expiration')
-                },
-                year: {
-                    selector: self.getSelector('expiration_yr')
-                },
-                cvv: {
-                    selector: self.getSelector('cc_cid')
-                }
-            };
-        },
-
-        /**
-         * Init Yandex configuration
-         */
-        initYandex: function () {
-            yandex.setConfig(this.clientConfig);
-        },
-
-        /**
          * Get full selector name
          *
          * @param {String} field
@@ -213,14 +133,10 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
          * @returns {Object}
          */
         getData: function () {
-            var data = {
-                'method': this.getCode(),
-                'additional_data': {
-                    'payment_token': this.paymentMethodToken
-                }
-            };
-
-            data['additional_data'] = _.extend(data['additional_data'], this.additionalData);
+            var data = this._super();
+            data['additional_data'] = _.extend(data['additional_data'], {
+                'payment_token': this.paymentMethodToken
+            });
 
             this.vaultEnabler.visitAdditionalData(data);
 
@@ -243,15 +159,6 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
         },
 
         /**
-         * Prepare data to place order
-         * @param {Object} response
-         */
-        beforePlaceOrder: function (response) {
-            this.setPaymentMethodToken(response.data.response.paymentToken);
-            //this.placeOrder();
-        },
-
-        /**
          * Validate current credit card type
          * @returns {Boolean}
          */
@@ -271,9 +178,28 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
          * Triggers order placing
          */
         placeOrderClick: function () {
+            var self = this;
+
             if (this.validateCardType()) {
                 this.isPlaceOrderActionAllowed(false);
-                yandex.tokenize();
+
+                this.yandex.tokenize({
+                    number: $(self.getSelector('cc_number')).val(),
+                    cvc: $(self.getSelector('cc_cid')).val(),
+                    month: $(self.getSelector('expiration')).val(),
+                    year: $(self.getSelector('expiration_yr')).val()
+                })
+                .then(function (response) {
+                    if (response.status === 'success') {
+                        self.setPaymentMethodToken(response.data.response.paymentToken);
+                        self.placeOrder();
+                    } else {
+                        self.isPlaceOrderActionAllowed(true);
+                        self.messageContainer.addErrorMessage({
+                            message:response.error.message
+                        });
+                    }
+                });
             }
         },
 
@@ -282,6 +208,40 @@ function (_, $, $t, Component, quote, yandex, fullScreenLoader, VaultEnabler) {
          */
         getVaultCode: function () {
             return window.checkoutConfig.payment[this.getCode()].ccVaultCode;
+        },
+
+        /**
+         * Get client token
+         * @returns {String|*}
+         */
+        getShopId: function () {
+            return window.checkoutConfig.payment[this.getCode()].shopId;
+        },
+
+        /**
+         * Get list of available month values
+         * @returns {Object}
+         */
+        getCcMonthsValues: function () {
+            return _.map(this.getCcMonths(), function (value, key) {
+                return {
+                    'value': ('0'+key).substr(-2),
+                    'month': value
+                };
+            });
+        },
+
+        /**
+         * Get list of available year values
+         * @returns {Object}
+         */
+        getCcYearsValues: function () {
+            return _.map(this.getCcYears(), function (value, key) {
+                return {
+                    'value': key.substr(-2),
+                    'year': value
+                };
+            });
         }
     });
 });
