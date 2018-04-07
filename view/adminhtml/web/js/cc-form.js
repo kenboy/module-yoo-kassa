@@ -49,7 +49,6 @@ define([
             domObserver.get('#' + self.container, function () {
                 if (self.scriptLoaded()) {
                     self.$selector.off('submit');
-                    self.initYandex();
                 }
             });
 
@@ -73,7 +72,7 @@ define([
          */
         onActiveChange: function (isActive) {
             if (!isActive) {
-                this.$selector.off('submitOrder.yandex_cc');
+                this.$selector.off('submitOrder.' + this.code);
                 return;
             }
 
@@ -102,16 +101,9 @@ define([
             $('body').trigger('processStart');
             require([this.sdkUrl], function () {
                 state(true);
-                self.initYandex();
+                self.yandex = window.YandexCheckout(self.shopId);
                 $('body').trigger('processStop');
             });
-        },
-
-        /**
-         * Retrieves client token and setup Yandex SDK
-         */
-        initYandex: function () {
-
         },
 
         /**
@@ -128,7 +120,7 @@ define([
          * Enable form event listeners
          */
         enableEventListeners: function () {
-            this.$selector.on('submitOrder.yandex_cc', this.submitOrder.bind(this));
+            this.$selector.on('submitOrder.' + this.code, this.submitOrder.bind(this));
         },
 
         /**
@@ -141,18 +133,20 @@ define([
 
         /**
          * Store payment details
-         * @param {String} nonce
+         * @param {String} token
          */
-        setPaymentDetails: function (nonce) {
+        setPaymentDetails: function (token) {
             $('#' + this.container)
-                .find('[name="payment[payment_method_nonce]"]')
-                .val(nonce);
+                .find('[name="payment[payment_token]"]')
+                .val(token);
         },
 
         /**
          * Trigger order submit
          */
         submitOrder: function () {
+            var self = this;
+
             this.$selector.validate().form();
             this.$selector.trigger('afterValidate.beforeSubmit');
             $('body').trigger('processStop');
@@ -162,7 +156,20 @@ define([
                 return false;
             }
 
-            $('#' + this.container).find('[type="submit"]').trigger('click');
+            this.yandex.tokenize({
+                number: $(self.getSelector('cc_number')).val(),
+                cvc: $(self.getSelector('cc_cid')).val(),
+                month: $(self.getSelector('expiration')).val(),
+                year: $(self.getSelector('expiration_yr')).val()
+            })
+            .then(function (response) {
+                if (response.status === 'success') {
+                    self.setPaymentDetails(response.data.response.paymentToken);
+                    self.placeOrder();
+                } else {
+                    self.error(response.error.message);
+                }
+            });
         },
 
         /**
@@ -170,39 +177,6 @@ define([
          */
         placeOrder: function () {
             $('#' + this.selector).trigger('realOrder');
-        },
-
-        /**
-         * Get list of currently available card types
-         * @returns {Array}
-         */
-        getCcAvailableTypes: function () {
-            var types = [],
-                $options = $(this.getSelector('cc_type')).find('option');
-
-            $.map($options, function (option) {
-                types.push($(option).val());
-            });
-
-            return types;
-        },
-
-        /**
-         * Validate current entered card type
-         * @returns {Boolean}
-         */
-        validateCardType: function () {
-            var $input = $(this.getSelector('cc_number'));
-
-            $input.removeClass('yandex-hosted-fields-invalid');
-
-            if (!this.selectedCardType()) {
-                $input.addClass('yandex-hosted-fields-invalid');
-                return false;
-            }
-
-            $(this.getSelector('cc_type')).val(this.selectedCardType());
-            return true;
         },
 
         /**

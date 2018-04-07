@@ -9,7 +9,7 @@
         <referenceBlock name="order_create_billing_form">
             <action method="setMethodFormTemplate">
                 <argument name="method" xsi:type="string">yandex_cc</argument>
-                <argument name="template" xsi:type="string">Magento_Payment::form/cc.phtml</argument>
+                <argument name="template" xsi:type="string">Kenboy_YandexCheckout::form/cc.phtml</argument>
             </action>
             <action method="setMethodFormTemplate">
                 <argument name="method" xsi:type="string">yandex_cc_vault</argument>
