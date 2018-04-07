@@ -186,8 +186,8 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
                 this.yandex.tokenize({
                     number: $(self.getSelector('cc_number')).val(),
                     cvc: $(self.getSelector('cc_cid')).val(),
-                    month: $(self.getSelector('expiration')).val(),
-                    year: $(self.getSelector('expiration_yr')).val()
+                    month: ('0'+$(self.getSelector('expiration')).val()).substr(-2),
+                    year: $(self.getSelector('expiration_yr')).val().substr(-2)
                 })
                 .then(function (response) {
                     if (response.status === 'success') {
@@ -216,32 +216,6 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
          */
         getShopId: function () {
             return window.checkoutConfig.payment[this.getCode()].shopId;
-        },
-
-        /**
-         * Get list of available month values
-         * @returns {Object}
-         */
-        getCcMonthsValues: function () {
-            return _.map(this.getCcMonths(), function (value, key) {
-                return {
-                    'value': ('0'+key).substr(-2),
-                    'month': value
-                };
-            });
-        },
-
-        /**
-         * Get list of available year values
-         * @returns {Object}
-         */
-        getCcYearsValues: function () {
-            return _.map(this.getCcYears(), function (value, key) {
-                return {
-                    'value': key.substr(-2),
-                    'year': value
-                };
-            });
         }
     });
 });
