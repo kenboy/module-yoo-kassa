@@ -51,7 +51,7 @@ class TokenUiComponentProvider implements TokenUiComponentProviderInterface
                     'code' => ConfigProvider::CC_VAULT_CODE,
                     TokenUiComponentProviderInterface::COMPONENT_DETAILS => $jsonDetails,
                     TokenUiComponentProviderInterface::COMPONENT_PUBLIC_HASH => $paymentToken->getPublicHash(),
-                    'template' => 'Magento_Vault::form/vault.phtml'
+                    'template' => 'Kenboy_YandexCheckout::form/vault.phtml'
                 ],
                 'name' => Template::class
             ]

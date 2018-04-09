@@ -1,8 +1,6 @@
 /**
  * See LICENSE.txt for license details.
  */
-/*browser:true*/
-/*global define*/
 define([
     'jquery',
     'uiComponent',

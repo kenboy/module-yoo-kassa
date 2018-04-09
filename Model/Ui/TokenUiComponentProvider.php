@@ -53,7 +53,7 @@ class TokenUiComponentProvider implements TokenUiComponentProviderInterface
                     TokenUiComponentProviderInterface::COMPONENT_DETAILS => $jsonDetails,
                     TokenUiComponentProviderInterface::COMPONENT_PUBLIC_HASH => $paymentToken->getPublicHash()
                 ],
-                'name' => 'Magento_Vault/js/view/payment/method-renderer/vault'
+                'name' => 'Kenboy_YandexCheckout/js/view/payment/method-renderer/vault'
             ]
         );
     }
