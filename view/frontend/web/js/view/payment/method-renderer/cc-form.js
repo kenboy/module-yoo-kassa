@@ -88,7 +88,7 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
             this.restoreCode();
 
             fullScreenLoader.startLoader();
-            require(['yandex'], function () {
+            require([this.getSdkUrl()], function () {
                 self.yandex = window.YandexCheckout(self.getShopId());
                 fullScreenLoader.stopLoader();
             });
@@ -195,9 +195,18 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
                         self.placeOrder();
                     } else {
                         self.isPlaceOrderActionAllowed(true);
-                        self.messageContainer.addErrorMessage({
-                            message:response.error.message
-                        });
+
+                        if (!_.isUndefined(response.error.message)) {
+                            self.messageContainer.addErrorMessage({
+                                message: response.error.message
+                            });
+                        }
+
+                        for (var param in response.error.params) {
+                            self.messageContainer.addErrorMessage({
+                                message: response.error.params[param].message
+                            });
+                        }
                     }
                 });
             }
@@ -216,6 +225,14 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
          */
         getShopId: function () {
             return window.checkoutConfig.payment[this.getCode()].shopId;
+        },
+
+        /**
+         * Get sdk url
+         * @returns {String|*}
+         */
+        getSdkUrl: function () {
+            return window.checkoutConfig.payment[this.getCode()].sdkUrl;
         }
     });
 });

@@ -31,7 +31,7 @@
                 <order_status>processing</order_status>
                 <environment>sandbox</environment>
                 <allowspecific>0</allowspecific>
-                <sdk_url><![CDATA[https://static.yandex.net/checkout/ui/v1/]]></sdk_url>
+                <sdk_url><![CDATA[https://static.yandex.net/checkout/js/v1/]]></sdk_url>
                 <secret_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <masked_fields>cvv,number</masked_fields>
                 <privateInfoKeys />
