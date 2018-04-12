@@ -69,7 +69,7 @@
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutCaptureStrategyCommand" type="Magento\Braintree\Gateway\Command\CaptureStrategyCommand">
+    <virtualType name="YandexCheckoutCaptureStrategyCommand" type="Kenboy\YandexCheckout\Gateway\Command\CaptureStrategyCommand">
         <arguments>
             <argument name="commandPool" xsi:type="object">YandexCheckoutCommandPool</argument>
         </arguments>
