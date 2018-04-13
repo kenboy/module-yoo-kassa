@@ -1,5 +1,6 @@
 <?php
 /**
+ * Copyright (c) 2018. All rights reserved.
  * See LICENSE.txt for license details.
  */
 namespace Kenboy\YandexCheckout\Model\InstantPurchase\CreditCard;
