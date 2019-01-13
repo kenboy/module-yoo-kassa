@@ -136,7 +136,7 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
         getData: function () {
             var data = this._super();
             data['additional_data'] = _.extend(data['additional_data'], {
-                'payment_token': this.paymentMethodToken
+                'payment_method_token': this.paymentMethodToken
             });
 
             this.vaultEnabler.visitAdditionalData(data);

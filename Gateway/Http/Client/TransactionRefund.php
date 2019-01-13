@@ -11,7 +11,16 @@ namespace Kenboy\YandexCheckout\Gateway\Http\Client;
 class TransactionRefund extends AbstractTransaction
 {
     /**
-     * @inheritdoc
+     * @param array $data
+     * @return \YandexCheckout\Request\Refunds\CreateRefundResponse
+     * @throws \YandexCheckout\Common\Exceptions\ApiException
+     * @throws \YandexCheckout\Common\Exceptions\BadApiRequestException
+     * @throws \YandexCheckout\Common\Exceptions\ForbiddenException
+     * @throws \YandexCheckout\Common\Exceptions\InternalServerError
+     * @throws \YandexCheckout\Common\Exceptions\NotFoundException
+     * @throws \YandexCheckout\Common\Exceptions\ResponseProcessingException
+     * @throws \YandexCheckout\Common\Exceptions\TooManyRequestsException
+     * @throws \YandexCheckout\Common\Exceptions\UnauthorizedException
      */
     protected function process(array $data)
     {

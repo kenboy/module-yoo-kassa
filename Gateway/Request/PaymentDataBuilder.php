@@ -6,6 +6,7 @@
 namespace Kenboy\YandexCheckout\Gateway\Request;
 
 use Kenboy\YandexCheckout\Gateway\SubjectReader;
+use Kenboy\YandexCheckout\Observer\DataAssignObserver;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Payment\Helper\Formatter;
 
@@ -57,7 +58,9 @@ class PaymentDataBuilder implements BuilderInterface
                 'value' => $this->formatPrice($this->subjectReader->readAmount($buildSubject)),
                 'currency' => $order->getCurrencyCode()
             ],
-            self::PAYMENT_TOKEN => $payment->getAdditionalInformation('payment_token'),
+            self::PAYMENT_TOKEN => $payment->getAdditionalInformation(
+                DataAssignObserver::PAYMENT_METHOD_TOKEN
+            ),
         ];
     }
 }

@@ -52,6 +52,33 @@
         </arguments>
     </type>
 
+    <!-- Logger, initialized with YandexConfig -->
+    <virtualType name="YandexLoggerForTransactionSale" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSale">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionCapture">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionRefund">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionVoid">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+
     <!-- Commands infrastructure -->
     <virtualType name="YandexCheckoutCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
         <arguments>

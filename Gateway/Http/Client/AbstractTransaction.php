@@ -76,6 +76,14 @@ abstract class AbstractTransaction implements ClientInterface
      * Process http request
      * @param array $data
      * @return \YandexCheckout\Common\AbstractObject
+     * @throws \YandexCheckout\Common\Exceptions\ApiException
+     * @throws \YandexCheckout\Common\Exceptions\BadApiRequestException
+     * @throws \YandexCheckout\Common\Exceptions\ForbiddenException
+     * @throws \YandexCheckout\Common\Exceptions\InternalServerError
+     * @throws \YandexCheckout\Common\Exceptions\NotFoundException
+     * @throws \YandexCheckout\Common\Exceptions\ResponseProcessingException
+     * @throws \YandexCheckout\Common\Exceptions\TooManyRequestsException
+     * @throws \YandexCheckout\Common\Exceptions\UnauthorizedException
      */
     abstract protected function process(array $data);
 }

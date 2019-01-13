@@ -9,9 +9,10 @@
     <system>
         <section id="payment">
             <group id="yandexcc" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Yandex Payment</label>
-                <comment><![CDATA[Accept credit/debit cards in your Magento store.]]></comment>
+                <label>Yandex Checkout</label>
+                <comment><![CDATA[<div class="yandex-payment-logo"></div>Accept credit/debit cards in your Magento store.]]></comment>
                 <fieldset_css>complex yandex-cc-section</fieldset_css>
+                <frontend_model>Magento\Paypal\Block\Adminhtml\System\Config\Fieldset\Payment</frontend_model>
                 <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Enable this Solution</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -29,7 +30,7 @@
                     </requires>
                 </field>
                 <group id="configuration_details" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="4">
-                    <comment>http://docs.magento.com/m2/ce/user_guide/payment/yandex_cc.html</comment>
+                    <comment>https://checkout.yandex.com/guide-instruction/</comment>
                     <frontend_model>Magento\Paypal\Block\Adminhtml\System\Config\Fieldset\Hint</frontend_model>
                 </group>
                 <group id="yandex_cc_required" translate="label" showInDefault="1" showInWebsite="1" sortOrder="5">
