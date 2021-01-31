@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Config;
+namespace Kenboy\YooKassa\Gateway\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Serialize\Serializer\Json;
@@ -20,7 +20,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     const KEY_SDK_URL = 'sdk_url';
     const KEY_USE_CVV = 'useccv';
     const KEY_CC_TYPES = 'cctypes';
-    const KEY_CC_TYPES_YANDEX_MAPPER = 'cctypes_yandex_mapper';
+    const KEY_CC_TYPES_YANDEX_MAPPER = 'cctypes_yoo_mapper';
     const KEY_COUNTRY_CREDIT_CARD = 'countrycreditcard';
 
     /**
@@ -29,7 +29,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     private $serializer;
 
     /**
-     * YandexCheckout config constructor
+     * YooKassa config constructor
      *
      * @param ScopeConfigInterface $scopeConfig
      * @param Json|null $serializer
@@ -89,7 +89,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     }
 
     /**
-     * Retrieve mapper between Magento and Yandex card types
+     * Retrieve mapper between Magento and Yoo card types
      *
      * @return array
      */

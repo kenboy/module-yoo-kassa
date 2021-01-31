@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Model\Ui;
+namespace Kenboy\YooKassa\Model\Ui;
 
-use Kenboy\YandexCheckout\Gateway\Config\Config;
-use Kenboy\YandexCheckout\Model\Adapter\YandexAdapterFactory;
+use Kenboy\YooKassa\Gateway\Config\Config;
+use Kenboy\YooKassa\Model\Adapter\YooAdapterFactory;
 use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Framework\Session\SessionManagerInterface;
 use Magento\Framework\View\Asset\Source;
@@ -17,9 +17,9 @@ use Magento\Payment\Model\CcConfig;
  */
 class ConfigProvider implements ConfigProviderInterface
 {
-    const CODE = 'yandex_cc';
+    const CODE = 'yoomoney_cc';
 
-    const CC_VAULT_CODE = 'yandex_cc_vault';
+    const CC_VAULT_CODE = 'yoomoney_cc_vault';
 
     /**
      * @var Config
@@ -27,7 +27,7 @@ class ConfigProvider implements ConfigProviderInterface
     private $config;
 
     /**
-     * @var YandexAdapterFactory
+     * @var YooAdapterFactory
      */
     private $adapterFactory;
 
@@ -50,14 +50,14 @@ class ConfigProvider implements ConfigProviderInterface
      * Constructor
      *
      * @param Config $config
-     * @param YandexAdapterFactory $adapterFactory
+     * @param YooAdapterFactory $adapterFactory
      * @param SessionManagerInterface $session
      * @param CcConfig $ccConfig
      * @param Source $assetSource
      */
     public function __construct(
         Config $config,
-        YandexAdapterFactory $adapterFactory,
+        YooAdapterFactory $adapterFactory,
         SessionManagerInterface $session,
         CcConfig $ccConfig,
         Source $assetSource
@@ -90,7 +90,7 @@ class ConfigProvider implements ConfigProviderInterface
             ],
         ];
 
-        $asset = $this->ccConfig->createAsset('Kenboy_YandexCheckout::images/cc/mir.png');
+        $asset = $this->ccConfig->createAsset('Kenboy_YooKassa::images/cc/mir.png');
         $placeholder = $this->assetSource->findSource($asset);
         if ($placeholder) {
             list($width, $height) = getimagesize($asset->getSourceFile());

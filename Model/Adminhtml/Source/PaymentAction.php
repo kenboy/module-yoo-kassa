@@ -1,17 +1,17 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Model\Adminhtml\Source;
+namespace Kenboy\YooKassa\Model\Adminhtml\Source;
 
-use Magento\Framework\Option\ArrayInterface;
-use Magento\Payment\Model\Method\AbstractMethod;
+use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Payment\Model\MethodInterface;
 
 /**
  * Class PaymentAction
  */
-class PaymentAction implements ArrayInterface
+class PaymentAction implements OptionSourceInterface
 {
     /**
      * Possible actions on order place
@@ -22,11 +22,11 @@ class PaymentAction implements ArrayInterface
     {
         return [
             [
-                'value' => AbstractMethod::ACTION_AUTHORIZE,
+                'value' => MethodInterface::ACTION_AUTHORIZE,
                 'label' => __('Authorize'),
             ],
             [
-                'value' => AbstractMethod::ACTION_AUTHORIZE_CAPTURE,
+                'value' => MethodInterface::ACTION_AUTHORIZE_CAPTURE,
                 'label' => __('Authorize and Capture'),
             ]
         ];

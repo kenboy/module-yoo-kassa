@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Request;
+namespace Kenboy\YooKassa\Gateway\Request;
 
 use Magento\Framework\Exception\LocalizedException;
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
+use Kenboy\YooKassa\Gateway\SubjectReader;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Payment\Helper\Formatter;
 

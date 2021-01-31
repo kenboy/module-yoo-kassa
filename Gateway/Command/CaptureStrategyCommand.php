@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Command;
+namespace Kenboy\YooKassa\Gateway\Command;
 
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
-use Kenboy\YandexCheckout\Model\Adapter\YandexAdapterFactory;
+use Kenboy\YooKassa\Gateway\SubjectReader;
+use Kenboy\YooKassa\Model\Adapter\YooAdapterFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Payment\Gateway\Command\CommandPoolInterface;
 use Magento\Payment\Gateway\CommandInterface;
@@ -22,17 +22,17 @@ use Magento\Sales\Api\TransactionRepositoryInterface;
 class CaptureStrategyCommand implements CommandInterface
 {
     /**
-     * Yandex authorize and capture command
+     * Yoo authorize and capture command
      */
     const SALE = 'sale';
 
     /**
-     * Yandex capture command
+     * Yoo capture command
      */
     const CAPTURE = 'settlement';
 
     /**
-     * Yandex vault capture command
+     * Yoo vault capture command
      */
     const VAULT_CAPTURE = 'vault_capture';
 
@@ -57,9 +57,9 @@ class CaptureStrategyCommand implements CommandInterface
     private $subjectReader;
 
     /**
-     * @var YandexAdapterFactory
+     * @var YooAdapterFactory
      */
-    private $yandexAdapterFactory;
+    private $yooAdapterFactory;
 
     /**
      * Constructor
@@ -68,20 +68,20 @@ class CaptureStrategyCommand implements CommandInterface
      * @param TransactionRepositoryInterface $repository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param SubjectReader $subjectReader
-     * @param YandexAdapterFactory $yandexAdapterFactory
+     * @param YooAdapterFactory $yooAdapterFactory
      */
     public function __construct(
         CommandPoolInterface $commandPool,
         TransactionRepositoryInterface $repository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SubjectReader $subjectReader,
-        YandexAdapterFactory $yandexAdapterFactory
+        YooAdapterFactory $yooAdapterFactory
     ) {
         $this->commandPool = $commandPool;
         $this->transactionRepository = $repository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->subjectReader = $subjectReader;
-        $this->yandexAdapterFactory = $yandexAdapterFactory;
+        $this->yooAdapterFactory = $yooAdapterFactory;
     }
 
     /**

@@ -1,1 +1,1 @@
-Module Kenboy\YandexCheckout implements integration with the Yandex Checkout payment system.
+Module Kenboy\YooKassa implements integration with the Yoo Checkout payment system.

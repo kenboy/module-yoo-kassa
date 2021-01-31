@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Response;
+namespace Kenboy\YooKassa\Gateway\Response;
 
-use Kenboy\YandexCheckout\Gateway\Config\Config;
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
+use Kenboy\YooKassa\Gateway\Config\Config;
+use Kenboy\YooKassa\Gateway\SubjectReader;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Payment\Gateway\Response\HandlerInterface;
 use Magento\Payment\Model\InfoInterface;
@@ -131,7 +131,7 @@ class VaultDetailsHandler implements HandlerInterface
     }
 
     /**
-     * Get type of credit card mapped from Yandex
+     * Get type of credit card mapped from Yoo
      *
      * @param string $type
      * @return array

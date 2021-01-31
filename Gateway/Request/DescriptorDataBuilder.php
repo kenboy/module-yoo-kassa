@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Request;
+namespace Kenboy\YooKassa\Gateway\Request;
 
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
-use Kenboy\YandexCheckout\Gateway\Config\Config;
+use Kenboy\YooKassa\Gateway\SubjectReader;
+use Kenboy\YooKassa\Gateway\Config\Config;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 
 /**

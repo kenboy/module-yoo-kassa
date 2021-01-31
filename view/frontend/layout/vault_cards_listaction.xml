@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
@@ -9,7 +9,7 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="vault.cards.list">
-                <block class="Kenboy\YandexCheckout\Block\Customer\CardRenderer" name="yandex.card.renderer" template="Magento_Vault::customer_account/credit_card.phtml"/>
+                <block class="Kenboy\YooKassa\Block\Customer\CardRenderer" name="yoo.card.renderer" template="Magento_Vault::customer_account/credit_card.phtml"/>
             </referenceBlock>
         </referenceContainer>
     </body>

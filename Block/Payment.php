@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Block;
+namespace Kenboy\YooKassa\Block;
 
-use Kenboy\YandexCheckout\Model\Ui\ConfigProvider;
+use Kenboy\YooKassa\Model\Ui\ConfigProvider;
 use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;

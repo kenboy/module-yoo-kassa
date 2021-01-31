@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
@@ -9,18 +9,18 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="yandex_config_provider" xsi:type="object">Kenboy\YandexCheckout\Model\Ui\ConfigProvider</item>
+                <item name="yoo_config_provider" xsi:type="object">Kenboy\YooKassa\Model\Ui\ConfigProvider</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Payment\Model\CcGenericConfigProvider">
         <arguments>
             <argument name="methodCodes" xsi:type="array">
-                <item name="yandex_cc" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CODE</item>
+                <item name="yoomoney_cc" xsi:type="const">Kenboy\YooKassa\Model\Ui\ConfigProvider::CODE</item>
             </argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Block\Info">
+    <type name="Kenboy\YooKassa\Block\Info">
         <arguments>
             <argument name="data" xsi:type="array">
                 <item xsi:type="string" name="is_secure_mode">1</item>
@@ -30,7 +30,7 @@
     <type name="Magento\Vault\Model\Ui\TokensConfigProvider">
         <arguments>
             <argument name="tokenUiComponentProviders" xsi:type="array">
-                <item name="yandex_cc" xsi:type="object">Kenboy\YandexCheckout\Model\Ui\TokenUiComponentProvider</item>
+                <item name="yoomoney_cc" xsi:type="object">Kenboy\YooKassa\Model\Ui\TokenUiComponentProvider</item>
             </argument>
         </arguments>
     </type>

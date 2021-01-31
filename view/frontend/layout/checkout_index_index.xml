@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
@@ -22,10 +22,10 @@
                                                         <item name="renders" xsi:type="array">
                                                             <!-- merge payment method renders here -->
                                                             <item name="children" xsi:type="array">
-                                                                <item name="yandex_cc" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Kenboy_YandexCheckout/js/view/payment/method</item>
+                                                                <item name="yoomoney_cc" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Kenboy_YooKassa/js/view/payment/method</item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="yandex_cc" xsi:type="array">
+                                                                        <item name="yoomoney_cc" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>

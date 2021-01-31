@@ -1,15 +1,15 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Model\InstantPurchase\CreditCard;
+namespace Kenboy\YooKassa\Model\InstantPurchase\CreditCard;
 
 use Magento\InstantPurchase\PaymentMethodIntegration\PaymentTokenFormatterInterface;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 
 /**
- * Yandex stored credit card formatter.
+ * Yoo stored credit card formatter.
  */
 class TokenFormatter implements PaymentTokenFormatterInterface
 {
@@ -35,7 +35,7 @@ class TokenFormatter implements PaymentTokenFormatterInterface
     {
         $details = json_decode($paymentToken->getTokenDetails() ?: '{}', true);
         if (!isset($details['type'], $details['maskedCC'], $details['expirationDate'])) {
-            throw new \InvalidArgumentException('Invalid Yandex credit card token details.');
+            throw new \InvalidArgumentException('Invalid Yoo credit card token details.');
         }
 
         if (isset(self::$baseCardTypes[$details['type']])) {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Http\Client;
+namespace Kenboy\YooKassa\Gateway\Http\Client;
 
 /**
  * Transaction Capture
@@ -12,20 +12,20 @@ class TransactionCapture extends AbstractTransaction
 {
     /**
      * @param array $data
-     * @return \YandexCheckout\Request\Payments\Payment\CreateCaptureResponse
-     * @throws \YandexCheckout\Common\Exceptions\ApiException
-     * @throws \YandexCheckout\Common\Exceptions\BadApiRequestException
-     * @throws \YandexCheckout\Common\Exceptions\ForbiddenException
-     * @throws \YandexCheckout\Common\Exceptions\InternalServerError
-     * @throws \YandexCheckout\Common\Exceptions\NotFoundException
-     * @throws \YandexCheckout\Common\Exceptions\ResponseProcessingException
-     * @throws \YandexCheckout\Common\Exceptions\TooManyRequestsException
-     * @throws \YandexCheckout\Common\Exceptions\UnauthorizedException
+     * @return \YooKassa\Request\Payments\Payment\CreateCaptureResponse
+     * @throws \YooKassa\Common\Exceptions\ApiException
+     * @throws \YooKassa\Common\Exceptions\BadApiRequestException
+     * @throws \YooKassa\Common\Exceptions\ForbiddenException
+     * @throws \YooKassa\Common\Exceptions\InternalServerError
+     * @throws \YooKassa\Common\Exceptions\NotFoundException
+     * @throws \YooKassa\Common\Exceptions\ResponseProcessingException
+     * @throws \YooKassa\Common\Exceptions\TooManyRequestsException
+     * @throws \YooKassa\Common\Exceptions\UnauthorizedException
      */
     protected function process(array $data)
     {
         $storeId = $data['store_id'] ?? null;
-        // sending store id and other additional keys are restricted by Yandex API
+        // sending store id and other additional keys are restricted by Yoo API
         unset($data['store_id']);
 
         return $this->adapterFactory->create($storeId)

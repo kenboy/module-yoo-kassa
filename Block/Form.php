@@ -1,14 +1,14 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Block;
+namespace Kenboy\YooKassa\Block;
 
 use Magento\Backend\Model\Session\Quote;
-use Kenboy\YandexCheckout\Gateway\Config\Config as GatewayConfig;
-use Kenboy\YandexCheckout\Model\Adminhtml\Source\CcType;
-use Kenboy\YandexCheckout\Model\Ui\ConfigProvider;
+use Kenboy\YooKassa\Gateway\Config\Config as GatewayConfig;
+use Kenboy\YooKassa\Model\Adminhtml\Source\CcType;
+use Kenboy\YooKassa\Model\Ui\ConfigProvider;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Block\Form\Cc;
 use Magento\Payment\Helper\Data;
@@ -96,7 +96,7 @@ class Form extends Cc
     }
 
     /**
-     * Get card types available for Yandex
+     * Get card types available for Yoo
      * @return array
      */
     private function getConfiguredCardTypes()
@@ -133,7 +133,7 @@ class Form extends Cc
     }
 
     /**
-     * Get configured vault payment for Yandex
+     * Get configured vault payment for Yoo
      * @return VaultPaymentInterface
      */
     private function getVaultPayment()

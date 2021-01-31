@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Model\Ui\Adminhtml;
+namespace Kenboy\YooKassa\Model\Ui\Adminhtml;
 
-use Kenboy\YandexCheckout\Model\Ui\ConfigProvider;
+use Kenboy\YooKassa\Model\Ui\ConfigProvider;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
@@ -52,7 +52,7 @@ class TokenUiComponentProvider implements TokenUiComponentProviderInterface
                     'code' => ConfigProvider::CC_VAULT_CODE,
                     TokenUiComponentProviderInterface::COMPONENT_DETAILS => $jsonDetails,
                     TokenUiComponentProviderInterface::COMPONENT_PUBLIC_HASH => $paymentToken->getPublicHash(),
-                    'template' => 'Kenboy_YandexCheckout::form/vault.phtml'
+                    'template' => 'Kenboy_YooKassa::form/vault.phtml'
                 ],
                 'name' => Template::class
             ]

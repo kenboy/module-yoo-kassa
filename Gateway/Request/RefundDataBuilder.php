@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Request;
+namespace Kenboy\YooKassa\Gateway\Request;
 
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
+use Kenboy\YooKassa\Gateway\SubjectReader;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Payment\Helper\Formatter;
 use Magento\Sales\Api\Data\TransactionInterface;
@@ -48,7 +48,7 @@ class RefundDataBuilder implements BuilderInterface
 
         /*
          * we should remember that Payment sets Capture txn id of current Invoice into ParentTransactionId Field
-         * We should also support previous implementations of Magento Yandex -
+         * We should also support previous implementations of Magento Yoo -
          * and cut off '-capture' postfix from transaction ID to support backward compatibility
          */
         $txnId = str_replace(

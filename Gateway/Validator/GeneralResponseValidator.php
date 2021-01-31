@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Validator;
+namespace Kenboy\YooKassa\Gateway\Validator;
 
-use Kenboy\YandexCheckout\Gateway\SubjectReader;
+use Kenboy\YooKassa\Gateway\SubjectReader;
 use Magento\Payment\Gateway\Validator\AbstractValidator;
 use Magento\Payment\Gateway\Validator\ResultInterfaceFactory;
 

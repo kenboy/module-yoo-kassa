@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 define([
@@ -16,7 +16,7 @@ define([
         defaults: {
             $selector: null,
             selector: 'edit_form',
-            container: 'payment_form_yandex_cc',
+            container: 'payment_form_yoomoney_cc',
             active: false,
             scriptLoaded: false,
             selectedCardType: null,
@@ -91,7 +91,7 @@ define([
         },
 
         /**
-         * Load external Yandex SDK
+         * Load external Yoo SDK
          */
         loadScript: function () {
             var self = this,
@@ -100,7 +100,7 @@ define([
             $('body').trigger('processStart');
             require([this.sdkUrl], function () {
                 state(true);
-                self.yandex = window.YandexCheckout(self.shopId);
+                self.yoo = window.YooKassa(self.shopId);
                 $('body').trigger('processStop');
             });
         },
@@ -155,7 +155,7 @@ define([
                 return false;
             }
 
-            this.yandex.tokenize({
+            this.yoo.tokenize({
                 number: $(self.getSelector('cc_number')).val(),
                 cvc: $(self.getSelector('cc_cid')).val(),
                 month: $(self.getSelector('expiration')).val(),

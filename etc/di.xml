@@ -1,306 +1,306 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Payment Method Facade configuration -->
-    <virtualType name="YandexCreditCardFacade" type="Magento\Payment\Model\Method\Adapter">
+    <virtualType name="YooCreditCardFacade" type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="code" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CODE</argument>
-            <argument name="formBlockType" xsi:type="string">Kenboy\YandexCheckout\Block\Form</argument>
-            <argument name="infoBlockType" xsi:type="string">Kenboy\YandexCheckout\Block\Info</argument>
-            <argument name="valueHandlerPool" xsi:type="object">YandexCheckoutValueHandlerPool</argument>
-            <argument name="validatorPool" xsi:type="object">YandexCheckoutValidatorPool</argument>
-            <argument name="commandPool" xsi:type="object">YandexCheckoutCommandPool</argument>
+            <argument name="code" xsi:type="const">Kenboy\YooKassa\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Kenboy\YooKassa\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Kenboy\YooKassa\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">YooKassaValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">YooKassaValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">YooKassaCommandPool</argument>
         </arguments>
     </virtualType>
 
     <!-- Configuration for Vault payments -->
-    <virtualType name="YandexCreditCardVaultFacade" type="Magento\Vault\Model\Method\Vault">
+    <virtualType name="YooCreditCardVaultFacade" type="Magento\Vault\Model\Method\Vault">
         <arguments>
-            <argument name="code" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
-            <argument name="config" xsi:type="object">YandexVaultPaymentConfig</argument>
-            <argument name="valueHandlerPool" xsi:type="object">YandexVaultPaymentValueHandlerPool</argument>
-            <argument name="vaultProvider" xsi:type="object">YandexCreditCardFacade</argument>
+            <argument name="code" xsi:type="const">Kenboy\YooKassa\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
+            <argument name="config" xsi:type="object">YooVaultPaymentConfig</argument>
+            <argument name="valueHandlerPool" xsi:type="object">YooVaultPaymentValueHandlerPool</argument>
+            <argument name="vaultProvider" xsi:type="object">YooCreditCardFacade</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+    <virtualType name="YooVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
+            <argument name="methodCode" xsi:type="const">Kenboy\YooKassa\Model\Ui\ConfigProvider::CC_VAULT_CODE</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexVaultPaymentValueHandler" type="VaultPaymentDefaultValueHandler">
+    <virtualType name="YooVaultPaymentValueHandler" type="VaultPaymentDefaultValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">YandexVaultPaymentConfig</argument>
+            <argument name="configInterface" xsi:type="object">YooVaultPaymentConfig</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexVaultPaymentValueHandlerPool" type="VaultPaymentValueHandlerPool">
+    <virtualType name="YooVaultPaymentValueHandlerPool" type="VaultPaymentValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">YandexVaultPaymentValueHandler</item>
+                <item name="default" xsi:type="string">YooVaultPaymentValueHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
     <!-- Configuration reader -->
-    <type name="Kenboy\YandexCheckout\Gateway\Config\Config">
+    <type name="Kenboy\YooKassa\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">Kenboy\YandexCheckout\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="methodCode" xsi:type="const">Kenboy\YooKassa\Model\Ui\ConfigProvider::CODE</argument>
         </arguments>
     </type>
 
-    <!-- Logger, initialized with YandexConfig -->
-    <virtualType name="YandexLoggerForTransactionSale" type="Magento\Payment\Model\Method\Logger">
+    <!-- Logger, initialized with YooConfig -->
+    <virtualType name="YooLoggerForTransactionSale" type="Magento\Payment\Model\Method\Logger">
         <arguments>
-            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+            <argument name="config" xsi:type="object">Kenboy\YooKassa\Gateway\Config\Config</argument>
         </arguments>
     </virtualType>
-    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSale">
+    <type name="Kenboy\YooKassa\Gateway\Http\Client\TransactionSale">
         <arguments>
-            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+            <argument name="customLogger" xsi:type="object">YooLoggerForTransactionSale</argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionCapture">
+    <type name="Kenboy\YooKassa\Gateway\Http\Client\TransactionCapture">
         <arguments>
-            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+            <argument name="customLogger" xsi:type="object">YooLoggerForTransactionSale</argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionRefund">
+    <type name="Kenboy\YooKassa\Gateway\Http\Client\TransactionRefund">
         <arguments>
-            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+            <argument name="customLogger" xsi:type="object">YooLoggerForTransactionSale</argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Gateway\Http\Client\TransactionVoid">
+    <type name="Kenboy\YooKassa\Gateway\Http\Client\TransactionVoid">
         <arguments>
-            <argument name="customLogger" xsi:type="object">YandexLoggerForTransactionSale</argument>
+            <argument name="customLogger" xsi:type="object">YooLoggerForTransactionSale</argument>
         </arguments>
     </type>
 
     <!-- Commands infrastructure -->
-    <virtualType name="YandexCheckoutCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+    <virtualType name="YooKassaCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="authorize" xsi:type="string">YandexCheckoutAuthorizeCommand</item>
-                <item name="sale" xsi:type="string">YandexCheckoutSaleCommand</item>
-                <item name="capture" xsi:type="string">YandexCheckoutCaptureStrategyCommand</item>
-                <item name="settlement" xsi:type="string">YandexCheckoutCaptureCommand</item>
-                <item name="vault_authorize" xsi:type="string">YandexCheckoutVaultAuthorizeCommand</item>
-                <item name="vault_sale" xsi:type="string">YandexCheckoutVaultSaleCommand</item>
-                <item name="vault_capture" xsi:type="string">YandexCheckoutVaultCaptureCommand</item>
-                <item name="void" xsi:type="string">YandexCheckoutVoidCommand</item>
-                <item name="refund" xsi:type="string">YandexCheckoutRefundCommand</item>
-                <item name="cancel" xsi:type="string">YandexCheckoutVoidCommand</item>
-                <item name="deny_payment" xsi:type="string">YandexCheckoutVoidCommand</item>
+                <item name="authorize" xsi:type="string">YooKassaAuthorizeCommand</item>
+                <item name="sale" xsi:type="string">YooKassaSaleCommand</item>
+                <item name="capture" xsi:type="string">YooKassaCaptureStrategyCommand</item>
+                <item name="settlement" xsi:type="string">YooKassaCaptureCommand</item>
+                <item name="vault_authorize" xsi:type="string">YooKassaVaultAuthorizeCommand</item>
+                <item name="vault_sale" xsi:type="string">YooKassaVaultSaleCommand</item>
+                <item name="vault_capture" xsi:type="string">YooKassaVaultCaptureCommand</item>
+                <item name="void" xsi:type="string">YooKassaVoidCommand</item>
+                <item name="refund" xsi:type="string">YooKassaRefundCommand</item>
+                <item name="cancel" xsi:type="string">YooKassaVoidCommand</item>
+                <item name="deny_payment" xsi:type="string">YooKassaVoidCommand</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutCaptureStrategyCommand" type="Kenboy\YandexCheckout\Gateway\Command\CaptureStrategyCommand">
+    <virtualType name="YooKassaCaptureStrategyCommand" type="Kenboy\YooKassa\Gateway\Command\CaptureStrategyCommand">
         <arguments>
-            <argument name="commandPool" xsi:type="object">YandexCheckoutCommandPool</argument>
+            <argument name="commandPool" xsi:type="object">YooKassaCommandPool</argument>
         </arguments>
     </virtualType>
 
-    <!-- Yandex commands. Authorization  -->
-    <virtualType name="YandexCheckoutAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <!-- Yoo commands. Authorization  -->
+    <virtualType name="YooKassaAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutAuthorizeRequest</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSale</argument>
-            <argument name="handler" xsi:type="object">YandexCheckoutAuthorizationHandler</argument>
-            <argument name="validator" xsi:type="object">Kenboy\YandexCheckout\Gateway\Validator\ResponseValidator</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaAuthorizeRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionSale</argument>
+            <argument name="handler" xsi:type="object">YooKassaAuthorizationHandler</argument>
+            <argument name="validator" xsi:type="object">Kenboy\YooKassa\Gateway\Validator\ResponseValidator</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="payment" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\PaymentDataBuilder</item>
-                <item name="vault" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\VaultDataBuilder</item>
-                <item name="dynamic_descriptor" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\DescriptorDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="payment" xsi:type="string">Kenboy\YooKassa\Gateway\Request\PaymentDataBuilder</item>
+                <item name="vault" xsi:type="string">Kenboy\YooKassa\Gateway\Request\VaultDataBuilder</item>
+                <item name="dynamic_descriptor" xsi:type="string">Kenboy\YooKassa\Gateway\Request\DescriptorDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- Authorization&Capture command  -->
-    <virtualType name="YandexCheckoutSaleCommand" type="YandexCheckoutAuthorizeCommand">
+    <virtualType name="YooKassaSaleCommand" type="YooKassaAuthorizeCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutSaleRequest</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaSaleRequest</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutSaleRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaSaleRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="authorize" xsi:type="string">YandexCheckoutAuthorizeRequest</item>
-                <item name="settlement" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\SettlementDataBuilder</item>
+                <item name="authorize" xsi:type="string">YooKassaAuthorizeRequest</item>
+                <item name="settlement" xsi:type="string">Kenboy\YooKassa\Gateway\Request\SettlementDataBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- Capture commands  -->
-    <virtualType name="YandexCheckoutCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <virtualType name="YooKassaCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutCaptureRequest</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSubmitForSettlement</argument>
-            <argument name="handler" xsi:type="object">Kenboy\YandexCheckout\Gateway\Response\TransactionIdHandler</argument>
-            <argument name="validator" xsi:type="object">Kenboy\YandexCheckout\Gateway\Validator\ResponseValidator</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaCaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionSubmitForSettlement</argument>
+            <argument name="handler" xsi:type="object">Kenboy\YooKassa\Gateway\Response\TransactionIdHandler</argument>
+            <argument name="validator" xsi:type="object">Kenboy\YooKassa\Gateway\Validator\ResponseValidator</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="capture" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\CaptureDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="capture" xsi:type="string">Kenboy\YooKassa\Gateway\Request\CaptureDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- Vault Authorization command -->
-    <virtualType name="YandexCheckoutVaultAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <virtualType name="YooKassaVaultAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutVaultAuthorizeRequest</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSale</argument>
-            <argument name="handler" xsi:type="object">YandexCheckoutVaultResponseHandler</argument>
-            <argument name="validator" xsi:type="object">Magento\YandexCheckout\Gateway\Validator\ResponseValidator</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaVaultAuthorizeRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionSale</argument>
+            <argument name="handler" xsi:type="object">YooKassaVaultResponseHandler</argument>
+            <argument name="validator" xsi:type="object">Magento\YooKassa\Gateway\Validator\ResponseValidator</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutVaultAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaVaultAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="payment" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\PaymentDataBuilder</item>
-                <item name="dynamic_descriptor" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\DescriptorDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="payment" xsi:type="string">Kenboy\YooKassa\Gateway\Request\PaymentDataBuilder</item>
+                <item name="dynamic_descriptor" xsi:type="string">Kenboy\YooKassa\Gateway\Request\DescriptorDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- Vault Authorization&Capture command -->
-    <virtualType name="YandexCheckoutVaultSaleCommand" type="YandexCheckoutVaultAuthorizeCommand">
+    <virtualType name="YooKassaVaultSaleCommand" type="YooKassaVaultAuthorizeCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutVaultSaleRequest</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaVaultSaleRequest</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutVaultSaleRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaVaultSaleRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="authorize" xsi:type="string">YandexCheckoutVaultAuthorizeRequest</item>
-                <item name="settlement" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\SettlementDataBuilder</item>
+                <item name="authorize" xsi:type="string">YooKassaVaultAuthorizeRequest</item>
+                <item name="settlement" xsi:type="string">Kenboy\YooKassa\Gateway\Request\SettlementDataBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- Vault Capture (Sale actually) command -->
-    <virtualType name="YandexCheckoutVaultCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <virtualType name="YooKassaVaultCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutVaultCaptureRequest</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionSale</argument>
-            <argument name="handler" xsi:type="object">Kenboy\YandexCheckout\Gateway\Response\TransactionIdHandler</argument>
-            <argument name="validator" xsi:type="object">Kenboy\YandexCheckout\Gateway\Validator\ResponseValidator</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaVaultCaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionSale</argument>
+            <argument name="handler" xsi:type="object">Kenboy\YooKassa\Gateway\Response\TransactionIdHandler</argument>
+            <argument name="validator" xsi:type="object">Kenboy\YooKassa\Gateway\Validator\ResponseValidator</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutVaultCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaVaultCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="vault_capture" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\VaultCaptureDataBuilder</item>
-                <item name="settlement" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\SettlementDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="vault_capture" xsi:type="string">Kenboy\YooKassa\Gateway\Request\VaultCaptureDataBuilder</item>
+                <item name="settlement" xsi:type="string">Kenboy\YooKassa\Gateway\Request\SettlementDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
-    <!-- END Yandex commands  -->
+    <!-- END Yoo commands  -->
 
     <!-- Value handlers infrastructure -->
-    <virtualType name="YandexCheckoutValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+    <virtualType name="YooKassaValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">YandexCheckoutConfigValueHandler</item>
-                <item name="can_void" xsi:type="string">Kenboy\YandexCheckout\Gateway\Config\CanVoidHandler</item>
-                <item name="can_cancel" xsi:type="string">Kenboy\YandexCheckout\Gateway\Config\CanVoidHandler</item>
+                <item name="default" xsi:type="string">YooKassaConfigValueHandler</item>
+                <item name="can_void" xsi:type="string">Kenboy\YooKassa\Gateway\Config\CanVoidHandler</item>
+                <item name="can_cancel" xsi:type="string">Kenboy\YooKassa\Gateway\Config\CanVoidHandler</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+    <virtualType name="YooKassaConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
-            <argument name="configInterface" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+            <argument name="configInterface" xsi:type="object">Kenboy\YooKassa\Gateway\Config\Config</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+    <virtualType name="YooKassaAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="payment_details" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\PaymentDetailsHandler</item>
-                <item name="txn_id" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\TransactionIdHandler</item>
-                <item name="card_details" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\CardDetailsHandler</item>
-                <item name="vault_details" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\VaultDetailsHandler</item>
+                <item name="payment_details" xsi:type="string">Kenboy\YooKassa\Gateway\Response\PaymentDetailsHandler</item>
+                <item name="txn_id" xsi:type="string">Kenboy\YooKassa\Gateway\Response\TransactionIdHandler</item>
+                <item name="card_details" xsi:type="string">Kenboy\YooKassa\Gateway\Response\CardDetailsHandler</item>
+                <item name="vault_details" xsi:type="string">Kenboy\YooKassa\Gateway\Response\VaultDetailsHandler</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutVaultResponseHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+    <virtualType name="YooKassaVaultResponseHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="payment_details" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\PaymentDetailsHandler</item>
-                <item name="txn_id" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\TransactionIdHandler</item>
-                <item name="card_details" xsi:type="string">Kenboy\YandexCheckout\Gateway\Response\CardDetailsHandler</item>
+                <item name="payment_details" xsi:type="string">Kenboy\YooKassa\Gateway\Response\PaymentDetailsHandler</item>
+                <item name="txn_id" xsi:type="string">Kenboy\YooKassa\Gateway\Response\TransactionIdHandler</item>
+                <item name="card_details" xsi:type="string">Kenboy\YooKassa\Gateway\Response\CardDetailsHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
     <!-- Void Command -->
-    <virtualType name="YandexCheckoutVoidCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <virtualType name="YooKassaVoidCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionVoid</argument>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutVoidRequestBuilder</argument>
-            <argument name="handler" xsi:type="object">Kenboy\YandexCheckout\Gateway\Response\VoidHandler</argument>
-            <argument name="validator" xsi:type="object">Kenboy\YandexCheckout\Gateway\Validator\GeneralResponseValidator</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionVoid</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaVoidRequestBuilder</argument>
+            <argument name="handler" xsi:type="object">Kenboy\YooKassa\Gateway\Response\VoidHandler</argument>
+            <argument name="validator" xsi:type="object">Kenboy\YooKassa\Gateway\Validator\GeneralResponseValidator</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutVoidRequestBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaVoidRequestBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="void" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\VoidDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="void" xsi:type="string">Kenboy\YooKassa\Gateway\Request\VoidDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- END Void Command -->
 
     <!-- Refund Command -->
-    <virtualType name="YandexCheckoutRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+    <virtualType name="YooKassaRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
         <arguments>
-            <argument name="client" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\Client\TransactionRefund</argument>
-            <argument name="requestBuilder" xsi:type="object">YandexCheckoutRefundBuilder</argument>
-            <argument name="validator" xsi:type="object">Kenboy\YandexCheckout\Gateway\Validator\GeneralResponseValidator</argument>
-            <argument name="handler" xsi:type="object">Kenboy\YandexCheckout\Gateway\Response\RefundHandler</argument>
-            <argument name="transferFactory" xsi:type="object">Kenboy\YandexCheckout\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kenboy\YooKassa\Gateway\Http\Client\TransactionRefund</argument>
+            <argument name="requestBuilder" xsi:type="object">YooKassaRefundBuilder</argument>
+            <argument name="validator" xsi:type="object">Kenboy\YooKassa\Gateway\Validator\GeneralResponseValidator</argument>
+            <argument name="handler" xsi:type="object">Kenboy\YooKassa\Gateway\Response\RefundHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Kenboy\YooKassa\Gateway\Http\TransferFactory</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutRefundBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+    <virtualType name="YooKassaRefundBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="refund" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\RefundDataBuilder</item>
-                <item name="store" xsi:type="string">Kenboy\YandexCheckout\Gateway\Request\StoreConfigBuilder</item>
+                <item name="refund" xsi:type="string">Kenboy\YooKassa\Gateway\Request\RefundDataBuilder</item>
+                <item name="store" xsi:type="string">Kenboy\YooKassa\Gateway\Request\StoreConfigBuilder</item>
             </argument>
         </arguments>
     </virtualType>
     <!-- END Refund Command -->
 
     <!-- Validators infrastructure -->
-    <virtualType name="YandexCheckoutCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+    <virtualType name="YooKassaCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
         <arguments>
-            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+            <argument name="config" xsi:type="object">Kenboy\YooKassa\Gateway\Config\Config</argument>
         </arguments>
     </virtualType>
-    <virtualType name="YandexCheckoutValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+    <virtualType name="YooKassaValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="country" xsi:type="string">YandexCheckoutCountryValidator</item>
+                <item name="country" xsi:type="string">YooKassaCountryValidator</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <type name="Kenboy\YandexCheckout\Block\Info">
+    <type name="Kenboy\YooKassa\Block\Info">
         <arguments>
-            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Gateway\Config\Config</argument>
+            <argument name="config" xsi:type="object">Kenboy\YooKassa\Gateway\Config\Config</argument>
         </arguments>
     </type>
 </config>

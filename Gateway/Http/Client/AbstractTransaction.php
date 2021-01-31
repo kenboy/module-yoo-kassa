@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Gateway\Http\Client;
+namespace Kenboy\YooKassa\Gateway\Http\Client;
 
-use Kenboy\YandexCheckout\Model\Adapter\YandexAdapterFactory;
+use Kenboy\YooKassa\Model\Adapter\YooAdapterFactory;
 use Magento\Payment\Gateway\Http\ClientException;
 use Magento\Payment\Gateway\Http\ClientInterface;
 use Magento\Payment\Gateway\Http\TransferInterface;
@@ -28,7 +28,7 @@ abstract class AbstractTransaction implements ClientInterface
     protected $customLogger;
 
     /**
-     * @var YandexAdapterFactory
+     * @var YooAdapterFactory
      */
     protected $adapterFactory;
 
@@ -37,9 +37,9 @@ abstract class AbstractTransaction implements ClientInterface
      *
      * @param LoggerInterface $logger
      * @param Logger $customLogger
-     * @param YandexAdapterFactory $adapterFactory
+     * @param YooAdapterFactory $adapterFactory
      */
-    public function __construct(LoggerInterface $logger, Logger $customLogger, YandexAdapterFactory $adapterFactory)
+    public function __construct(LoggerInterface $logger, Logger $customLogger, YooAdapterFactory $adapterFactory)
     {
         $this->logger = $logger;
         $this->customLogger = $customLogger;
@@ -60,10 +60,10 @@ abstract class AbstractTransaction implements ClientInterface
 
         try {
             $response['object'] = $this->process($data)->jsonSerialize();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $message = __($e->getMessage() ?: 'Sorry, but something went wrong');
             $this->logger->critical($message);
-            throw new ClientException($message);
+            throw new ClientException($message, $e);
         } finally {
             $log['response'] = (array) $response['object'];
             $this->customLogger->debug($log);
@@ -75,15 +75,15 @@ abstract class AbstractTransaction implements ClientInterface
     /**
      * Process http request
      * @param array $data
-     * @return \YandexCheckout\Common\AbstractObject
-     * @throws \YandexCheckout\Common\Exceptions\ApiException
-     * @throws \YandexCheckout\Common\Exceptions\BadApiRequestException
-     * @throws \YandexCheckout\Common\Exceptions\ForbiddenException
-     * @throws \YandexCheckout\Common\Exceptions\InternalServerError
-     * @throws \YandexCheckout\Common\Exceptions\NotFoundException
-     * @throws \YandexCheckout\Common\Exceptions\ResponseProcessingException
-     * @throws \YandexCheckout\Common\Exceptions\TooManyRequestsException
-     * @throws \YandexCheckout\Common\Exceptions\UnauthorizedException
+     * @return \YooKassa\Common\AbstractObject
+     * @throws \YooKassa\Common\Exceptions\ApiException
+     * @throws \YooKassa\Common\Exceptions\BadApiRequestException
+     * @throws \YooKassa\Common\Exceptions\ForbiddenException
+     * @throws \YooKassa\Common\Exceptions\InternalServerError
+     * @throws \YooKassa\Common\Exceptions\NotFoundException
+     * @throws \YooKassa\Common\Exceptions\ResponseProcessingException
+     * @throws \YooKassa\Common\Exceptions\TooManyRequestsException
+     * @throws \YooKassa\Common\Exceptions\UnauthorizedException
      */
     abstract protected function process(array $data);
 }

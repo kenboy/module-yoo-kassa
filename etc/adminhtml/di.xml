@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Kenboy\YandexCheckout\Block\Payment">
+    <type name="Kenboy\YooKassa\Block\Payment">
         <arguments>
-            <argument name="config" xsi:type="object">Kenboy\YandexCheckout\Model\Ui\ConfigProvider</argument>
+            <argument name="config" xsi:type="object">Kenboy\YooKassa\Model\Ui\ConfigProvider</argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Block\Info">
+    <type name="Kenboy\YooKassa\Block\Info">
         <arguments>
             <argument name="data" xsi:type="array">
                 <item xsi:type="string" name="is_secure_mode">0</item>
             </argument>
         </arguments>
     </type>
-    <type name="Kenboy\YandexCheckout\Model\Ui\ConfigProvider">
+    <type name="Kenboy\YooKassa\Model\Ui\ConfigProvider">
         <arguments>
             <argument name="session" xsi:type="object">Magento\Backend\Model\Session\Quote</argument>
         </arguments>
@@ -26,7 +26,7 @@
     <type name="Magento\Vault\Model\Ui\Adminhtml\TokensConfigProvider">
         <arguments>
             <argument name="tokenUiComponentProviders" xsi:type="array">
-                <item name="yandex_cc" xsi:type="object">Kenboy\YandexCheckout\Model\Ui\Adminhtml\TokenUiComponentProvider</item>
+                <item name="yoomoney_cc" xsi:type="object">Kenboy\YooKassa\Model\Ui\Adminhtml\TokenUiComponentProvider</item>
             </argument>
         </arguments>
     </type>

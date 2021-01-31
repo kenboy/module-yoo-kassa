@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
-namespace Kenboy\YandexCheckout\Model\Adminhtml\Source;
+namespace Kenboy\YooKassa\Model\Adminhtml\Source;
 
 use Magento\Framework\Option\ArrayInterface;
 

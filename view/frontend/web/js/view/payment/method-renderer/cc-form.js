@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 /*browser:true*/
@@ -18,14 +18,14 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
 
     return Component.extend({
         defaults: {
-            template: 'Kenboy_YandexCheckout/payment/form',
+            template: 'Kenboy_YooKassa/payment/form',
             active: false,
             paymentMethodToken: null,
             lastBillingAddress: null,
             ccCode: null,
             ccMessageContainer: null,
-            code: 'yandex_cc',
-            yandex: null,
+            code: 'yoomoney_cc',
+            yoo: null,
             imports: {
                 onActiveChange: 'active'
             }
@@ -90,7 +90,7 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
 
             fullScreenLoader.startLoader();
             require([this.getSdkUrl()], function () {
-                self.yandex = window.YandexCheckout(self.getShopId());
+                self.yoo = window.YooMoneyCheckout(self.getShopId());
                 fullScreenLoader.stopLoader();
             });
         },
@@ -184,7 +184,7 @@ function (_, $, $t, Component, quote, fullScreenLoader, VaultEnabler) {
             if (this.validateCardType()) {
                 this.isPlaceOrderActionAllowed(false);
 
-                this.yandex.tokenize({
+                this.yoo.tokenize({
                     number: $(self.getSelector('cc_number')).val(),
                     cvc: $(self.getSelector('cc_cid')).val(),
                     month: ('0'+$(self.getSelector('expiration')).val()).substr(-2),

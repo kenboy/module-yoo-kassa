@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
@@ -9,11 +9,11 @@
     <body>
         <referenceBlock name="order.create.billing.method.form">
             <action method="setMethodFormTemplate">
-                <argument name="method" xsi:type="string">yandex_cc</argument>
-                <argument name="template" xsi:type="string">Kenboy_YandexCheckout::form/cc.phtml</argument>
+                <argument name="method" xsi:type="string">yoomoney_cc</argument>
+                <argument name="template" xsi:type="string">Kenboy_YooKassa::form/cc.phtml</argument>
             </action>
             <action method="setMethodFormTemplate">
-                <argument name="method" xsi:type="string">yandex_cc_vault</argument>
+                <argument name="method" xsi:type="string">yoomoney_cc_vault</argument>
                 <argument name="template" xsi:type="string">Magento_Vault::form/vault.phtml</argument>
             </action>
         </referenceBlock>

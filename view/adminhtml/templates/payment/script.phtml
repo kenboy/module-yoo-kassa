@@ -1,10 +1,10 @@
 <?php
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-/** @var Kenboy\YandexCheckout\Block\Payment $block */
+/** @var Kenboy\YooKassa\Block\Payment $block */
 $code = $block->escapeHtml($block->getCode());
 ?>
 <script>
@@ -12,7 +12,7 @@ $code = $block->escapeHtml($block->getCode());
     require(
         [
             'jquery',
-            'Kenboy_YandexCheckout/js/cc-form',
+            'Kenboy_YooKassa/js/cc-form',
             'Magento_Sales/order/create/form',
             'domReady!'
         ], function($, Form) {

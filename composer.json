@@ -1,25 +1,23 @@
 {
-    "name": "kenboy/module-yandex-checkout",
-    "description": "Yandex.Checkout payment method",
+    "name": "kenboy/module-yoo-kassa",
+    "description": "YooKassa payment method",
     "require": {
-        "php": "~7.1.3||~7.2.0",
-        "magento/framework": "102.0.*",
-        "magento/module-catalog": "103.0.*",
-        "magento/module-backend": "101.0.*",
-        "magento/module-checkout": "100.3.*",
-        "magento/module-config": "101.1.*",
-        "magento/module-customer": "102.0.*",
-        "magento/module-directory": "100.3.*",
-        "magento/module-instant-purchase": "100.3.*",
-        "magento/module-payment": "100.3.*",
-        "magento/module-quote": "101.1.*",
-        "magento/module-sales": "102.0.*",
-        "magento/module-ui": "101.1.*",
-        "magento/module-vault": "101.1.*",
-        "yandex-money/yandex-checkout-sdk-php": "~1.1.0"
+        "php": "~7.3.0||~7.4.0",
+        "magento/framework": "^102|^103",
+        "magento/module-bundle": "^100.3||^101.0",
+        "magento/module-catalog": "^103.0|^104.0",
+        "magento/module-config": "^101.1",
+        "magento/module-customer": "^102.0|^103.0",
+        "magento/module-directory": "^100.3",
+        "magento/module-payment": "^100.3",
+        "magento/module-quote": "^101.1",
+        "magento/module-sales": "^102.0||^103.0",
+        "magento/module-store": "^101.0",
+        "magento/module-tax": "^100.3",
+        "yoomoney/yookassa-sdk-php": "^2.0"
     },
     "type": "magento2-module",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "license": [
         "OSL-3.0"
     ],
@@ -28,7 +26,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Kenboy\\YandexCheckout\\": ""
+            "Kenboy\\YooKassa\\": ""
         }
     }
 }

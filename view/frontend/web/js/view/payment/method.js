@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 define(
@@ -14,13 +14,13 @@ define(
         'use strict';
 
         var config = window.checkoutConfig.payment,
-            yandexType = 'yandex_cc';
+            yooType = 'yoomoney_cc';
 
-        if (config[yandexType].isActive) {
+        if (config[yooType].isActive) {
             rendererList.push(
                 {
-                    type: yandexType,
-                    component: 'Kenboy_YandexCheckout/js/view/payment/method-renderer/cc-form'
+                    type: yooType,
+                    component: 'Kenboy_YooKassa/js/view/payment/method-renderer/cc-form'
                 }
             );
         }

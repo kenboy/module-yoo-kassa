@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2018. All rights reserved.
+ * Copyright (c) 2021. All rights reserved.
  * See LICENSE.txt for license details.
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="payment_method_assign_data_yandex_cc">
-        <observer name="yandex_cc_gateway_data_assign" instance="Kenboy\YandexCheckout\Observer\DataAssignObserver" />
+    <event name="payment_method_assign_data_yoomoney_cc">
+        <observer name="yoomoney_cc_gateway_data_assign" instance="Kenboy\YooKassa\Observer\DataAssignObserver" />
     </event>
 </config>
